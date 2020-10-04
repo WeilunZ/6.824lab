@@ -78,7 +78,7 @@ func runMap(task *TaskInfo, mapf func(string, string) []KeyValue) {
 	outFiles := make([]*os.File, task.NReduce)
 	fileEncoders := make([]*json.Encoder, task.NReduce)
 	for i := 0; i < task.NReduce; i++ {
-		outFiles[i], _ = ioutil.TempFile("mr-intermediate", "mr-tmp-*")
+		outFiles[i], _ = ioutil.TempFile("mr-tmp", "mr-intermediate-*")
 		fileEncoders[i] = json.NewEncoder(outFiles[i])
 	}
 
@@ -122,7 +122,7 @@ func runReduce(task *TaskInfo, reducef func(string, []string) string) {
 
 	sort.Sort(ByKey(kva))
 
-	f, err := ioutil.TempFile("mr-out", "mr-tmp-*")
+	f, err := ioutil.TempFile("mr-tmp", "mr-out-*")
 	if err != nil {
 		log.Fatalf("open tmp file error crash: %v", err)
 	}
