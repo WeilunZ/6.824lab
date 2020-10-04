@@ -9,7 +9,10 @@ package main
 // Please do not change this file.
 //
 
-import "../mr"
+import (
+	"../mr"
+	"log"
+)
 import "time"
 import "os"
 import "fmt"
@@ -19,6 +22,8 @@ func main() {
 		fmt.Fprintf(os.Stderr, "Usage: mrmaster inputfiles...\n")
 		os.Exit(1)
 	}
+
+	log.SetFlags(log.Lshortfile | log.LstdFlags)
 
 	m := mr.MakeMaster(os.Args[1:], 10)
 	for m.Done() == false {

@@ -22,6 +22,9 @@ func main() {
 		os.Exit(1)
 	}
 
+	log.SetFlags(log.Lshortfile | log.LstdFlags)
+
+
 	mapf, reducef := loadPlugin(os.Args[1])
 
 	mr.Worker(mapf, reducef)
